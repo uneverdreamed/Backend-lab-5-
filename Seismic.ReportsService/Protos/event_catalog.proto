@@ -1,0 +1,45 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Seismic.CatalogService.Grpc";
+
+package seismic.catalog;
+
+import "google/protobuf/timestamp.proto";
+
+// Сервис каталога сейсмических событий
+// Предоставляет доменную операцию сопоставления пользовательского наблюдения с зарегистрированным землетрясением.
+service EventCatalog {
+  rpc MatchEvent (MatchEventRequest) returns (MatchEventResponse);
+}
+
+message MatchEventRequest {
+  double latitude = 1;                      
+  double longitude = 2;                     
+  google.protobuf.Timestamp felt_at = 3;    
+}
+
+message MatchEventResponse {
+  bool matched = 1;                     
+  EarthquakeMessage earthquake = 2;        
+  double distance_to_epicenter_km = 3;    
+}
+
+message EarthquakeMessage {
+  int64 id = 1;
+  string external_id = 2;
+  double epicenter_lat = 3;
+  double epicenter_lon = 4;
+  double depth = 5;
+  double magnitude = 6;
+  google.protobuf.Timestamp occurred_at = 7;
+  string region_name = 8;
+  string source = 9;
+  NearestStation nearest_station = 10;     
+}
+
+message NearestStation {
+  string code = 1;
+  string name = 2;
+  string organization = 3;
+  double distance_to_station_km = 4;
+}

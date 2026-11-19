@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="BackendII_laba1/BackendII_laba1.csproj" />
+  <Project Path="Seismic.ReportsService/Seismic.ReportsService.csproj" />
+</Solution>
